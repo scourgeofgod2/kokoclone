@@ -6,6 +6,8 @@ from core.cloner import KokoClone
 # 1. Initialize the cloner globally so models load only once when the server starts
 print("Loading KokoClone models for the Web UI...")
 cloner = KokoClone()
+
+
 def clone_voice(text, lang, ref_audio_path):
     """Gradio handler: text + reference audio → cloned speech."""
     if not text or not text.strip():
@@ -45,6 +47,7 @@ def convert_voice(source_audio_path, ref_audio_path):
         return output_file
     except Exception as e:
         raise gr.Error(f"An error occurred during conversion: {str(e)}")
+
 
 # 2. Build the Gradio UI using Blocks
 with gr.Blocks() as demo:
@@ -172,6 +175,7 @@ with gr.Blocks() as demo:
                 fn=lambda: gr.update(value="🔁 Convert Voice", interactive=True),
                 outputs=convert_btn
             )
+
 
 if __name__ == "__main__":
     demo.launch(
